@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Executive Briefing · Утренний пульс холдинга</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #121824;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 24, 36, 0.8);
+      backdrop-filter: blur(10px);
+    }
+    .brand { display: flex; align-items: center; gap: 0.85rem; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 700;
+    }
+    .brand-title { font-size: 1.1rem; font-weight: 600; }
+    .brand-sub { font-size: 0.82rem; color: var(--text-muted); }
+    .header-badge {
+      background: rgba(16, 185, 129, 0.15); color: #34d399;
+      padding: 0.35rem 0.75rem; border-radius: 9999px;
+      font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    @media (max-width: 1100px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    /* PROJECT FILTER BAR */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--card-bg);
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      width: fit-content;
+    }
+    .filter-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn.active {
+      background: #1e293b;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .filter-btn:hover:not(.active) { color: #fff; }
+
+    /* KPI METRICS BAR */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .kpi-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.4rem; }
+    .kpi-val { font-size: 1.4rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .kpi-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+    /* SECTION CARD */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* PROJECTS BREAKDOWN GRID */
+    .projects-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .proj-item {
+      background: #182232;
+      border: 1px solid #233044;
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+    .proj-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .proj-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 700; color: #34d399; }
+    .proj-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* PROGRESS BAR */
+    .progress-track {
+      width: 100%; height: 10px; background: #1e293b;
+      border-radius: 9999px; overflow: hidden; margin: 0.75rem 0;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, #3b82f6, #10b981);
+      width: 72.8%; border-radius: 9999px;
+    }
+
+    /* STALLED DEALS TABLE */
+    .deal-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.85rem 1rem; background: #182232; border-radius: 8px;
+      margin-bottom: 0.6rem; border: 1px solid #233044;
+      transition: border-color 0.15s;
+    }
+    .deal-row:hover { border-color: var(--accent); }
+    .deal-info h5 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .deal-info p { font-size: 0.78rem; color: var(--text-muted); }
+    .deal-amount { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 600; }
+    .tag-danger {
+      font-size: 0.7rem; background: rgba(239, 68, 68, 0.15); color: #f87171;
+      padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; display: inline-block;
+    }
+    .tag-warning {
+      font-size: 0.7rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24;
+      padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; display: inline-block;
+    }
+
+    /* MANAGERS LIST */
+    .manager-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.75rem 0; border-bottom: 1px solid #1e293b; font-size: 0.88rem;
+    }
+    .manager-row:last-child { border-bottom: none; }
+    .manager-name { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; }
+
+    /* PHONE / TELEGRAM PREVIEW */
+    .phone-mockup {
+      background: #17212b;
+      border: 1px solid #2b394a;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .phone-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding-bottom: 1rem; border-bottom: 1px solid #242f3d; margin-bottom: 1rem;
+    }
+    .bot-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #2481cc; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .tg-bubble {
+      background: #182533;
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #e4ecf2;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      flex: 1;
+      max-height: 650px;
+      border: 1px solid #2b394a;
+    }
+    .tg-bubble a { color: #64b5f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-logo">📊</div>
+      <div>
+        <div class="brand-title">B2B Executive Briefing · Утренний пульс холдинга</div>
+        <div class="brand-sub">Сводный срез: Ангары и Здания · Кровли и Фасады · Автоклавный газобетон</div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span class="header-badge">● amoCRM API v4 Live Sync</span>
+    </div>
+  </header>
+  <div style="background: rgba(245, 158, 11, 0.12); border-bottom: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; padding: 0.45rem 2.5rem; font-size: 0.76rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-align: center;">
+    <span>⚠️</span> <span><b>ДЕМОНСТРАЦИОННЫЙ СТЕНД:</b> Все показатели выручки, суммы сделок, названия контрагентов и дебиторская задолженность являются смоделированными демо-данными для иллюстрации архитектуры и защиты коммерческой тайны.</span>
+  </div>
+
+  <div class="container">
+    <!-- LEFT: ANALYTICS DASHBOARD -->
+    <div>
+
+      <!-- KPI CARDS -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Выполнение плана (Холдинг)</div>
+          <div class="kpi-val" style="color: #34d399;">72.8%</div>
+          <div class="kpi-sub">Факт: 21.85 млн / 30.0 млн ₽</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Зависло в воронках</div>
+          <div class="kpi-val" style="color: #f87171;">16.6 млн ₽</div>
+          <div class="kpi-sub">4 ключевые сделки > 5 дн.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Контроль дебиторки</div>
+          <div class="kpi-val" style="color: #fbbf24;">2.43 млн ₽</div>
+          <div class="kpi-sub">2 счёта требуют созвона</div>
+        </div>
+      </div>
+
+      <!-- 3 PROJECTS SUMMARY -->
+      <div class="section-card">
+        <div class="section-title">
+          <span>🏛 Выполнение по коммерческим проектам</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">21-й день месяца</span>
+        </div>
+        <div class="projects-summary-grid">
+          <div class="proj-item">
+            <div class="proj-title">🏭 Ангары и Здания</div>
+            <div class="proj-stat">74.7%</div>
+            <div class="proj-sub">11.2 млн / 15.0 млн ₽</div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-title">🏢 Кровли и Фасады</div>
+            <div class="proj-stat">71.7%</div>
+            <div class="proj-sub">6.45 млн / 9.0 млн ₽</div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-title">🧱 Газобетон</div>
+            <div class="proj-stat">70.0%</div>
+            <div class="proj-sub">4.2 млн / 6.0 млн ₽</div>
+          </div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- STALLED DEALS -->
+      <div class="section-card">
+        <div class="section-title">
+          <span>⚠️ Зависшие сделки без движения (>5 дней)</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Всего: 16 600 000 ₽</span>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-info">
+            <h5>🏭 Металлокаркас логистического терминала 2400 м² · ООО «ПромРесурс»</h5>
+            <p>Этап: Согласование проекта КМ · Менеджер: Д. Морозов</p>
+          </div>
+          <div class="deal-amount">
+            <div style="color: #f87171;">7 500 000 ₽</div>
+            <span class="tag-danger">12 дн. без звонка</span>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-info">
+            <h5>🏭 Тёплый склад 1200 м² (ЛСТК) · ЗАО «УралКомплект»</h5>
+            <p>Этап: КП отправлено (нет звонка) · Менеджер: Д. Морозов</p>
+          </div>
+          <div class="deal-amount">
+            <div style="color: #fbbf24;">3 750 000 ₽</div>
+            <span class="tag-warning">8 дн. без контакта</span>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-info">
+            <h5>🏢 Фасадные кассеты КФ-1 для ТРК (3500 м²) · ГК «Строительный Альянс»</h5>
+            <p>Этап: Раскладка кассет и образцы · Менеджер: Е. Смирнова</p>
+          </div>
+          <div class="deal-amount">
+            <div>3 200 000 ₽</div>
+            <span class="tag-warning">6 дн. без контакта</span>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-info">
+            <h5>🧱 Газобетон D500 400мм (120 м³) · ООО «Квартал-Строй»</h5>
+            <p>Этап: Выставлен счёт на оплату · Менеджер: М. Карпов</p>
+          </div>
+          <div class="deal-amount">
+            <div>2 150 000 ₽</div>
+            <span class="tag-warning">7 дн. без оплаты</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MANAGERS LEADERBOARD -->
+      <div class="section-card">
+        <div class="section-title">
+          <span>🏆 Лидерборд менеджеров по проектам</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Контроль просрочек</span>
+        </div>
+
+        <div class="manager-row">
+          <div class="manager-name">
+            <span style="color: #10b981;">🟢</span>
+            <span>Алексей Власов (🏭 Ангары)</span>
+          </div>
+          <div style="font-family: 'JetBrains Mono';">85.0% (6.80 млн ₽) · 0 просрочек</div>
+        </div>
+
+        <div class="manager-row">
+          <div class="manager-name">
+            <span style="color: #10b981;">🟢</span>
+            <span>Елена Смирнова (🏢 Фасады)</span>
+          </div>
+          <div style="font-family: 'JetBrains Mono';">71.7% (6.45 млн ₽) · 1 просрочка</div>
+        </div>
+
+        <div class="manager-row">
+          <div class="manager-name">
+            <span style="color: #10b981;">🟢</span>
+            <span>Михаил Карпов (🧱 Газобетон)</span>
+          </div>
+          <div style="font-family: 'JetBrains Mono';">70.0% (4.20 млн ₽) · 1 просрочка</div>
+        </div>
+
+        <div class="manager-row">
+          <div class="manager-name">
+            <span style="color: #f59e0b;">🟡</span>
+            <span>Дмитрий Морозов (🏭 Ангары)</span>
+          </div>
+          <div style="font-family: 'JetBrains Mono';">62.8% (4.40 млн ₽) · 1 просрочка</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: TELEGRAM PHONE PREVIEW -->
+    <div>
+      <div class="phone-mockup">
+        <div class="phone-header">
+          <div class="bot-avatar">🤖</div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem;">B2B Executive Briefing Bot</div>
+            <div style="font-size: 0.75rem; color: #7f91a4;">Утренний пульс РОПа · Ежедневно в 08:45</div>
+          </div>
+        </div>
+
+        <div class="tg-bubble">
+📊 <b>УТРЕННИЙ ПУЛЬС ХОЛДИНГА · 08.11.2026</b>
+<i>Сводный срез: Ангары · Фасады · Газобетон</i>
+━━━━━━━━━━━━━━━━━━
+🎯 <b>ПЛАН / ФАКТ МЕСЯЦА (ОБЩИЙ)</b>
+<code>[███████░░░] 72.8%</code>
+• Факт: <b>21.85 млн ₽</b> | План: <b>30.00 млн ₽</b>
+• Прогноз к концу месяца: <b>32.13 млн ₽</b>
+
+🏛 <b>ВЫПОЛНЕНИЕ ПО НАПРАВЛЕНИЯМ:</b>
+• 🏭 <b>Ангары и Здания:</b> 74.7% (11.20 млн / 15.00 млн ₽)
+• 🏢 <b>Кровли и Фасады:</b> 71.7% (6.45 млн / 9.00 млн ₽)
+• 🧱 <b>Газобетон:</b> 70.0% (4.20 млн / 6.00 млн ₽)
+
+⚠️ <b>ЗАВИСШИЕ СДЕЛКИ (>5 ДНЕЙ)</b>
+Всего зависло: <b>16.60 млн ₽</b> (4 сделки)
+
+🔴 <a href="#">ООО «ПромРесурс» (Ангар 2400 м²)</a> — 7.50 млн ₽
+   └ <i>Согласование КМ</i> | 12 дн. | 👤 Д. Морозов
+
+🟠 <a href="#">ЗАО «УралКомплект» (Склад ЛСТК 1200 м²)</a> — 3.75 млн ₽
+   └ <i>КП отправлено (нет звонка)</i> | 8 дн. | 👤 Д. Морозов
+
+🟡 <a href="#">ГК «Строительный Альянс» (Фасадные кассеты КФ-1)</a> — 3.20 млн ₽
+   └ <i>Раскладка кассет</i> | 6 дн. | 👤 Е. Смирнова
+
+🟡 <a href="#">ООО «Квартал-Строй» (Газобетон D500)</a> — 2.15 млн ₽
+   └ <i>Счёт на оплату</i> | 7 дн. | 👤 М. Карпов
+
+⏱ <b>ПРОСРОЧЕННЫЕ ЗАДАЧИ:</b>
+• Д. Морозов (4 дн.): Уточнить правки по разделу КМ
+• М. Карпов (3 дн.): Проверить график длинномеров
+• Е. Смирнова (2 дн.): Отправить колор-карту RAL заказчику
+
+💸 <b>КОНТРОЛЬ ДЕБИТОРКИ (DSO)</b>
+Всего просрочено: <b>2.43 млн ₽</b>
+🚨 ООО «ТехноПромСервис»: 1.65 млн ₽ (просрочка 4 дн.)
+• ЗАО «СтройВектор»: 780 тыс ₽ (просрочка 2 дн.)
+
+👉 <b>ФОКУС ДНЯ ДЛЯ РОПА:</b>
+📌 Зависло 11.25 млн ₽ в направлении «Ангары» — разобрать сделки Морозова на утренней летучке.
+📌 Приостановить отгрузку «ТехноПромСервис» до поступления 1.65 млн ₽.
+📌 Ускорить согласование раскладки кассет по объекту ТРК у Смирновой.
+━━━━━━━━━━━━━━━━━━
+<i>amoCRM API sync · 08:45 AM</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
