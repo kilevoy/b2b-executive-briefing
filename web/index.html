@@ -54,6 +54,27 @@
       font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
+    .btn-guide {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff !important;
+      border: 1px solid #34d399 !important;
+      padding: 7px 15px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+    .btn-guide:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
     .container {
       max-width: 1600px;
       margin: 0 auto;
@@ -230,11 +251,15 @@
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 1rem;">
+      <a class="btn-guide" href="guide.html">📖 Инструкция к сервису</a>
       <span class="header-badge">● amoCRM API v4 Live Sync</span>
     </div>
   </header>
-  <div style="background: rgba(245, 158, 11, 0.12); border-bottom: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; padding: 0.45rem 2.5rem; font-size: 0.76rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-align: center;">
-    <span>⚠️</span> <span><b>ДЕМОНСТРАЦИОННЫЙ СТЕНД:</b> Все показатели выручки, суммы сделок, названия контрагентов и дебиторская задолженность являются смоделированными демо-данными для иллюстрации архитектуры и защиты коммерческой тайны.</span>
+  <div style="background: rgba(245, 158, 11, 0.12); border-bottom: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; padding: 0.45rem 2.5rem; font-size: 0.76rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <span>⚠️</span> <span><b>ДЕМОНСТРАЦИОННЫЙ СТЕНД:</b> Все показатели выручки, суммы сделок, названия контрагентов и дебиторская задолженность являются смоделированными демо-данными для иллюстрации архитектуры и защиты коммерческой тайны.</span>
+    </div>
+    <a href="https://kilevoy.github.io/" style="color: #38bdf8; text-decoration: none; font-weight: 600;">← На главную портфолио</a>
   </div>
 
   <div class="container">

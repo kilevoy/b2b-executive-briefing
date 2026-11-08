@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Инструкция: B2B Executive Briefing — Утренний пульс холдинга</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --accent: #3b82f6;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    .top-nav {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #059669;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .btn-back:hover { background: #047857; }
+    .btn-portfolio {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+    .btn-portfolio:hover { color: #fff; }
+
+    /* Layout */
+    .content-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Hero header */
+    .hero {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 26px;
+      margin-bottom: 32px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 26px;
+    }
+    .section-card h2 {
+      font-size: 20px;
+      color: #34d399;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-card p, .section-card li {
+      font-size: 15px;
+      color: #cbd5e1;
+      line-height: 1.65;
+    }
+    .section-card ul {
+      margin: 12px 0;
+      padding-left: 22px;
+    }
+    .section-card li { margin-bottom: 8px; }
+
+    /* Comparison Box */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0;
+    }
+    @media (max-width: 720px) {
+      .vs-grid { grid-template-columns: 1fr; }
+    }
+    .vs-box {
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 14px;
+    }
+    .vs-bad {
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+    .vs-bad strong { color: #f87171; display: block; margin-bottom: 6px; font-size: 15px; }
+    .vs-good {
+      background: rgba(16, 185, 129, 0.07);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .vs-good strong { color: #34d399; display: block; margin-bottom: 6px; font-size: 15px; }
+
+    /* Cards Grid */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    @media (max-width: 720px) {
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+    .metric-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .metric-item .metric-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fde68a;
+      margin-bottom: 8px;
+    }
+    .metric-item p {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* Pipeline Diagram */
+    .flow-diagram {
+      background: #090e17;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 18px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      overflow-x: auto;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .flow-step:last-child { margin-bottom: 0; }
+    .flow-badge {
+      background: #1e293b;
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      min-width: 140px;
+      text-align: center;
+    }
+    .flow-arrow { color: #f59e0b; font-weight: bold; }
+
+    /* Steps box */
+    .step-list {
+      counter-reset: guide-step;
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    .step-list li {
+      counter-increment: guide-step;
+      position: relative;
+      padding-left: 42px;
+      margin-bottom: 16px;
+    }
+    .step-list li::before {
+      content: counter(guide-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background: #059669;
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bottom-cta {
+      text-align: center;
+      margin-top: 36px;
+      padding: 24px;
+      background: #111827;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+    }
+    .bottom-cta p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a href="index.html" class="brand-link">
+      <div class="brand-icon">📊</div>
+      <span>B2B Executive Briefing</span>
+    </a>
+    <div class="nav-actions">
+      <a href="https://kilevoy.github.io/" class="btn-portfolio">← Портфолио</a>
+      <a href="index.html" class="btn-back">← К интерактивному стенду</a>
+    </div>
+  </nav>
+
+  <!-- Content Container -->
+  <main class="content-wrap">
+
+    <header class="hero">
+      <span class="tag">Управленческий регламент</span>
+      <h1>Для чего нужен Executive Briefing и как он работает физически</h1>
+      <p>
+        Практическое руководство для генерального и коммерческого директоров: как получать объективный срез по продажам, зависшим сделкам и дебиторке в Telegram в 07:30 утра без ручного сбора отчетов в 1С.
+      </p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <section class="section-card">
+      <h2>1. Какую бизнес-проблему решает сервис?</h2>
+      <p>
+        В производственном холдинге с несколькими направлениями (быстровозводимые здания, фасадные материалы, автоклавный газобетон) руководство ежедневно сталкивается с информационным шумом:
+      </p>
+      <ul>
+        <li>Отчеты в 1С формируются с задержкой и содержат сотни строк, в которых трудно быстро увидеть кассовый разрыв.</li>
+        <li>В CRM-системах менеджеры часто не передвигают этапы, и зависшие на 10 дней сделки на десятки миллионов рублей «теряются» из поля зрения.</li>
+        <li>На утренних планерках вместо принятия управленческих решений 30 минут уходит на выяснение: <em>«А где завис договор с ООО ТДСК?»</em>.</li>
+      </ul>
+
+      <div class="vs-grid">
+        <div class="vs-bad">
+          <strong>❌ Без утреннего брифинга:</strong>
+          Директор узнает о срыве плана продаж или кассовом разрыве в конце месяца, когда исправить ситуацию уже невозможно, а клиенты ушли к конкурентам из-за затянутого согласования.
+        </div>
+        <div class="vs-good">
+          <strong>✅ С Executive Briefing:</strong>
+          Каждое утро ровно в 07:30 на смартфон руководителя приходит короткая выжимка: выполнение плана по холдингу (72.8%), список из 4 критически зависших сделок на 16.6 млн ₽ с указанием виновного лица и готовая повестка для планерки.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="section-card">
+      <h2>2. Как робот физически собирает и анализирует данные?</h2>
+      <p>
+        Система работает в фоновом режиме по расписанию каждую ночь:
+      </p>
+
+      <div class="metric-grid">
+        <div class="metric-item">
+          <div class="metric-head">🔗 1. Сбор данных из amoCRM и 1С</div>
+          <p>
+            В 07:15 робот опрашивает API amoCRM (статусы сделок, даты последних контактов, задачи менеджеров) и базу 1С:Управление торговлей (поступления денег, отгрузки, просроченная дебиторка).
+          </p>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-head">⚠️ 2. Детекция аномалий и зависаний</div>
+          <p>
+            Алгоритм вычисляет сделки, где срок нахождения на этапе превышает нормативный (например, договор на согласовании у юристов более 3 рабочих дней) или где нет запланированного следующего действия.
+          </p>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-head">📈 3. Прогноз выполнения плана продаж</div>
+          <p>
+            На основе текущего темпа оплат и вероятности закрытия сделок в воронке рассчитывается реалистичный прогноз закрытия месяца по 3 направлениям.
+          </p>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-head">📲 4. Персональная доставка в Telegram</div>
+          <p>
+            В 07:30 формируется лаконичное Telegram-сообщение с форматированием, эмодзи-индикаторами («красная зона», «зеленая зона») и прямыми ссылками на карточки сделок в CRM.
+          </p>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <span class="flow-badge">1С + amoCRM</span>
+          <span class="flow-arrow">──► Ночной расчет 07:15 ──►</span>
+          <span class="flow-badge" style="background:#059669;color:#fff;">AI-Анализ рисков</span>
+          <span class="flow-arrow">──► В 07:30 ──►</span>
+          <span class="flow-badge" style="background:#3b82f6;color:#fff;">Telegram директора</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="section-card">
+      <h2>3. Структура утренней сводки руководителя</h2>
+      <p>Сводка содержит только то, на что директор может повлиять сегодня:</p>
+      <ul>
+        <li><strong>План/Факт выручки:</strong> общий процент и срез по направлениям (Ангары, Фасады, Газобетон).</li>
+        <li><strong>Красная зона (Риски):</strong> конкретные контрагенты, суммы, дни простоя и причина (например, «ООО ТДСК: 4.8 млн ₽, договор у юриста 6 дней без движения»).</li>
+        <li><strong>Эффективность менеджеров:</strong> кто выполняет норматив по звонкам и счетам, а у кого накопились просроченные задачи.</li>
+        <li><strong>Рекомендации для планерки:</strong> 3 точечных поручения, которые нужно дать руководителям отделов прямо сейчас.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="section-card">
+      <h2>4. Как протестировать стенд прямо сейчас?</h2>
+      <ol class="step-list">
+        <li>
+          <strong>Переключайте фильтры по дивизионам:</strong> нажмите кнопки <em>«Все направления»</em>, <em>«Ангары»</em>, <em>«Фасады»</em> или <em>«Газобетон»</em>, чтобы увидеть изолированную аналитику по каждому направлению.
+        </li>
+        <li>
+          <strong>Изучите блок KPI:</strong> выполнение плана холдинга 72.8% (21.85 млн из 30 млн ₽) и сумму застрявших сделок (16.6 млн ₽).
+        </li>
+        <li>
+          <strong>Посмотрите список зависших сделок слева:</strong> обратите внимание на бейджи задержки («8 дн.», «5 дн.») и причины задержки на согласовании.
+        </li>
+        <li>
+          <strong>Оцените правый блок (Telegram-сводка):</strong> в интерактивном смартфоне справа показано реальное сообщение, подготовленное роботом для коммерческого директора на сегодняшнее утро.
+        </li>
+      </ol>
+    </section>
+
+    <div class="bottom-cta">
+      <p>Готовы посмотреть аналитический дашборд руководителя?</p>
+      <a href="index.html" class="btn-back" style="font-size:15px;padding:10px 22px;">⚡ Перейти к демо-стенду Executive Briefing</a>
+    </div>
+
+  </main>
+
+</body>
+</html>
